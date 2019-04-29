@@ -31,7 +31,7 @@
         "app-module-path": "2.1.X",
         "aws-sdk": "2.241.X",
         "dotenv": "2.0.X",
-        "serverless": "1.27.X",
+        "serverless": "^1.41.1",
         "serverless-offline": "3.21.X"
     },
     "devDependencies": {
