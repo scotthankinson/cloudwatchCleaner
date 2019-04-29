@@ -1,0 +1,40 @@
+service:
+  name: cloudCleaner
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  memorySize: 512 # optional, default is 1024
+  role: ${file(deploy.env.yml):IAM_ROLE}
+  timeout: 30 # may need to be larger for a large volume of log streams
+  stage: dev
+  environment:
+    IS_SERVERLESS: ${file(deploy.env.yml):IS_SERVERLESS}
+    LIFECYCLE: ${file(deploy.env.yml):LIFECYCLE}
+
+package:
+  exclude:
+    - test/**
+    - .git/**
+    - coverage/**
+    - src/**
+    - node_modules/@types/**
+    - node_modules/serverless
+    - node_modules/serverless-offline
+    - testresults
+    - build/**/*.js.map
+    - build/test/**
+    - tsconfig.json
+    - .env
+
+functions:
+
+  cloudwatchCleaner:
+    timeout: 30
+    handler: build/src/functions/handler.updateRetentions
+    events:
+      - schedule: cron(15 3 * * ? *)
+
+plugins:
+  - serverless-offline
+

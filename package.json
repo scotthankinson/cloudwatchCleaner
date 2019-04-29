@@ -1,0 +1,58 @@
+{
+    "name": "cloudwatch-cleaner",
+    "version": "1.0.0",
+    "description": "A cron-based service to update Cloudwatch log expirations",
+    "main": "",
+    "scripts": {
+        "clean": "rm -rf build && rm -rf coverage && rm -rf testreports && rm -rf .serverless && npm install && npm run lint",
+        "lint": "$(npm bin)/tslint -c ./tslint.json 'src/**/*.ts' 'test/**/*.ts'",
+        "prestart": "npm run clean && tsc",
+        "start": "node --inspect $(npm bin)/serverless offline start",
+        "predeploy": "npm run clean && tsc && npm prune --production",
+        "deploy": "$(npm bin)/serverless deploy",
+        "build": "npm run clean && tsc",
+        "precover": "npm run clean && tsc",
+        "cover": "$(npm bin)/istanbul cover --include-all-sources -x '*.jenkins.js' -x 'test/**' node_modules/mocha/bin/_mocha -- -- build/test/index.js build/test/**/*.js",
+        "postcover": "node_modules/.bin/remap-istanbul -i coverage/coverage.json -o coverage/html -t html",
+        "pretest": "npm run clean && tsc",
+        "test": "$(npm bin)/mocha --recursive --require build/test/index.js build/test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/scotthankinson/cloudwatchCleaner"
+    },
+    "author": "Scott Hankinson",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/scotthankinson/cloudwatchCleaner/issues"
+    },
+    "homepage": "https://github.com/scotthankinson/cloudwatchCleaner",
+    "dependencies": {
+        "app-module-path": "2.1.X",
+        "aws-sdk": "2.241.X",
+        "dotenv": "2.0.X",
+        "serverless": "1.27.X",
+        "serverless-offline": "3.21.X"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "8.10.24",
+        "@types/expect.js": "0.3.X",
+        "@types/mocha": "2.2.X",
+        "@types/node": "8.10.0",
+        "@types/sinon": "4.3.X",
+        "@types/sinon-stub-promise": "2.1.X",
+        "expect.js": "0.3.X",
+        "istanbul": "0.4.X",
+        "mocha": "5.1.X",
+        "mocha-junit-reporter": "1.17.X",
+        "mocha-multi": "^1.0.1",
+        "mocha-multi-reporters": "1.1.7",
+        "mochawesome": "3.0.X",
+        "remap-istanbul": "0.11.X",
+        "sinon": "6.3.3",
+        "source-map-support": "0.5.X",
+        "tslint": "5.9.X",
+        "tslint-microsoft-contrib": "5.0.X",
+        "typescript": "2.8.X"
+    }
+}
