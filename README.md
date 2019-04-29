@@ -1,6 +1,6 @@
 # Cloudwatch Cleaner
 
-An example Serverless project to clean up old Cloudwatch Logs by setting automatically setting their retention period each night.  It is currently configured to set ALL CloudWatch Log Groups to a retention period of 180 days, and to run once per night to check for new log groups.
+An example Serverless project to clean up old Cloudwatch Logs by automatically setting their retention period each night if unset.  It is currently configured to set ALL CloudWatch Log Groups to a retention period of 180 days, and to run once per night to check for new log groups.
 
 ## Required Configuration
 
