@@ -24,7 +24,8 @@ export class CloudwatchCleanerLogic {
     static setRetentionsForPrefix = async (cwLogs: AWS.CloudWatchLogs, prefix: string, nextToken?: string) => {
         let updated = 0;
         try {
-            let data: AWS.CloudWatchLogs.DescribeLogGroupsResponse = await cwLogs.describeLogGroups({logGroupNamePrefix: prefix, nextToken}).promise();
+            let data: AWS.CloudWatchLogs.DescribeLogGroupsResponse = await cwLogs.describeLogGroups(
+                {logGroupNamePrefix: prefix, nextToken}).promise();
             if (data.logGroups) {
                 console.log(data.logGroups);
                 for(let logGroup of data.logGroups) {
